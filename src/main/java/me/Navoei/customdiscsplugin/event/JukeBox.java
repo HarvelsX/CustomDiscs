@@ -1,9 +1,6 @@
 package me.Navoei.customdiscsplugin.event;
 
-import me.Navoei.customdiscsplugin.CustomDiscs;
-import me.Navoei.customdiscsplugin.ParticleManager;
-import me.Navoei.customdiscsplugin.PlayerManager;
-import me.Navoei.customdiscsplugin.VoicePlugin;
+import me.Navoei.customdiscsplugin.*;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -60,7 +57,7 @@ public class JukeBox implements Listener{
                         .build();
 
                 assert VoicePlugin.voicechatServerApi != null;
-                playerManager.playLocationalAudio(VoicePlugin.voicechatServerApi, soundFilePath, block, customActionBarSongPlaying.asComponent());
+                playerManager.playLocationalAudio(VoicePlugin.voicechatServerApi, soundFilePath, block.getLocation(), customActionBarSongPlaying.asComponent(), () -> HopperManager.instance().discToHopper(block));
             } else {
                 player.sendMessage(ChatColor.RED + "Sound file not found.");
                 event.setCancelled(true);

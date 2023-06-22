@@ -49,7 +49,7 @@ public class HopperManager implements Listener {
 
         Path soundFilePath = Path.of(customDiscs.getDataFolder().getPath(), "musicdata", soundFileName);
         assert VoicePlugin.voicechatServerApi != null;
-        playerManager.playLocationalAudio(VoicePlugin.voicechatServerApi, soundFilePath, event.getDestination().getLocation().getBlock(), customActionBarSongPlaying.asComponent());
+        playerManager.playLocationalAudio(VoicePlugin.voicechatServerApi, soundFilePath, event.getDestination().getLocation(), customActionBarSongPlaying.asComponent(), () -> this.discToHopper(event.getDestination().getLocation().getBlock()));
 
     }
 

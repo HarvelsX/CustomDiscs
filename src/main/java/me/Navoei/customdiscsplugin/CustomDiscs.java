@@ -9,28 +9,18 @@ import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.events.PacketEvent;
 import de.maxhenkel.voicechat.api.BukkitVoicechatService;
 import me.Navoei.customdiscsplugin.command.CommandManager;
+import me.Navoei.customdiscsplugin.event.GoatHorn;
 import me.Navoei.customdiscsplugin.event.JukeBox;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.bukkit.Bukkit;
-import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
-import org.bukkit.block.BlockFace;
-import org.bukkit.block.Hopper;
 import org.bukkit.block.Jukebox;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import javax.annotation.Nullable;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.File;
-import java.io.IOException;
-import java.nio.file.Path;
 import java.util.Objects;
-
-import static me.Navoei.customdiscsplugin.PlayerManager.getLengthSeconds;
 
 public final class CustomDiscs extends JavaPlugin {
 
@@ -66,6 +56,7 @@ public final class CustomDiscs extends JavaPlugin {
             LOGGER.info("Failed to register CustomDiscs plugin");
         }
 
+        getServer().getPluginManager().registerEvents(new GoatHorn(), this);
         getServer().getPluginManager().registerEvents(new JukeBox(), this);
         getServer().getPluginManager().registerEvents(new HopperManager(), this);
         getCommand("customdisc").setExecutor(new CommandManager());
