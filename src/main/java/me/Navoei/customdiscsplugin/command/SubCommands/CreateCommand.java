@@ -19,6 +19,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class CreateCommand extends SubCommand {
@@ -40,7 +41,7 @@ public class CreateCommand extends SubCommand {
 
     @Override
     public void perform(Player player, String[] args) {
-        if (isMusicDisc(player)) {
+        if (isSupported(player)) {
             if (args.length >= 3) {
 
                 if (!player.hasPermission("customdiscs.create")) {
@@ -78,8 +79,8 @@ public class CreateCommand extends SubCommand {
                 }
 
                 //Sets the lore of the item to the quotes from the command.
-                ItemStack disc = new ItemStack(player.getInventory().getItemInMainHand());
-                ItemMeta meta = disc.getItemMeta();
+                ItemStack item = new ItemStack(player.getInventory().getItemInMainHand());
+                ItemMeta meta = item.getItemMeta();
                 @Nullable List<Component> itemLore = new ArrayList<>();
                 final TextComponent customLoreSong = Component.text()
                         .decoration(TextDecoration.ITALIC, false)
@@ -102,7 +103,7 @@ public class CreateCommand extends SubCommand {
                 player.sendMessage(ChatColor.RED + "Insufficient arguments! ( /customdisc create <filename> \"Custom Lore\" )");
             }
         } else {
-            player.sendMessage(ChatColor.RED + "You are not holding a music disc in your main hand!");
+            player.sendMessage(ChatColor.RED + "You are not holding a music disc or goat horn in your main hand!");
         }
     }
 
@@ -158,23 +159,26 @@ public class CreateCommand extends SubCommand {
         }
     }
 
-    private boolean isMusicDisc(Player p) {
+    private boolean isSupported(Player p) {
+        return Arrays.asList(
+                Material.MUSIC_DISC_13,
+                Material.MUSIC_DISC_CAT,
+                Material.MUSIC_DISC_BLOCKS,
+                Material.MUSIC_DISC_CHIRP,
+                Material.MUSIC_DISC_FAR,
+                Material.MUSIC_DISC_MALL,
+                Material.MUSIC_DISC_MELLOHI,
+                Material.MUSIC_DISC_STAL,
+                Material.MUSIC_DISC_STRAD,
+                Material.MUSIC_DISC_WARD,
+                Material.MUSIC_DISC_11,
+                Material.MUSIC_DISC_WAIT,
+                Material.MUSIC_DISC_OTHERSIDE,
+                Material.MUSIC_DISC_5,
+                Material.MUSIC_DISC_PIGSTEP,
 
-        return p.getInventory().getItemInMainHand().getType().equals(Material.MUSIC_DISC_13) ||
-                p.getInventory().getItemInMainHand().getType().equals(Material.MUSIC_DISC_CAT) ||
-                p.getInventory().getItemInMainHand().getType().equals(Material.MUSIC_DISC_BLOCKS) ||
-                p.getInventory().getItemInMainHand().getType().equals(Material.MUSIC_DISC_CHIRP) ||
-                p.getInventory().getItemInMainHand().getType().equals(Material.MUSIC_DISC_FAR) ||
-                p.getInventory().getItemInMainHand().getType().equals(Material.MUSIC_DISC_MALL) ||
-                p.getInventory().getItemInMainHand().getType().equals(Material.MUSIC_DISC_MELLOHI) ||
-                p.getInventory().getItemInMainHand().getType().equals(Material.MUSIC_DISC_STAL) ||
-                p.getInventory().getItemInMainHand().getType().equals(Material.MUSIC_DISC_STRAD) ||
-                p.getInventory().getItemInMainHand().getType().equals(Material.MUSIC_DISC_WARD) ||
-                p.getInventory().getItemInMainHand().getType().equals(Material.MUSIC_DISC_11) ||
-                p.getInventory().getItemInMainHand().getType().equals(Material.MUSIC_DISC_WAIT) ||
-                p.getInventory().getItemInMainHand().getType().equals(Material.MUSIC_DISC_OTHERSIDE) ||
-                p.getInventory().getItemInMainHand().getType().equals(Material.MUSIC_DISC_5) ||
-                p.getInventory().getItemInMainHand().getType().equals(Material.MUSIC_DISC_PIGSTEP);
+                Material.GOAT_HORN
+        ).contains(p.getInventory().getItemInMainHand().getType());
     }
 
 }
